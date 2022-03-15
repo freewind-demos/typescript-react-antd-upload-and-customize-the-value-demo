@@ -18,7 +18,16 @@ export default function Hello() {
 
   return <>
     <Form<FormData> onFinish={onFinish}>
-      <Form.Item label={'Upload'} name={'image'}>
+      <Form.Item label={'Upload'} name={'image'}
+                 valuePropName='values'
+                 getValueProps={(e) => {
+                   console.log("### getValueProps", e);
+                   return {values: e ? [e] : e}
+                 }}
+                 getValueFromEvent={(e) => {
+                   console.log("### getValueFromEvent", e);
+                   return e?.fileList[0];
+                 }}>
         <Upload beforeUpload={() => false} listType='picture'>
           <Button>Click to upload</Button>
         </Upload>
